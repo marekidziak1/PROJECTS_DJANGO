@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+    {{object.title}}
+    <p><a href ="{% url 'blog:article_list'%}">article_list</a></p>
+{% endblock %}

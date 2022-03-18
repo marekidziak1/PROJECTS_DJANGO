@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>ABOUT</h1>
+    {% for item in list %}
+        {% if item == "abc" %}
+            <h1>{{item}}</h1>
+        {% else %}
+            <li>{{ forloop.counter }} === {{item}}</li>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

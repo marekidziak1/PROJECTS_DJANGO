@@ -1,0 +1,17 @@
+{% extends "site1/base.html" %}
+{% block title %} CREATE NEW LIST {% endblock %}
+{% block content %}
+    <h3>CREATE NEW LIST</h3>
+    <form method = 'post'  class="form-group">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button type="submit" name="save" class="btn btn-success">CREATE NEW</button>
+            </div>
+            {{form.name}}<!--zamiast {{form.as_p }}-->
+        </div>
+    </form>
+{% endblock %}
+{% block content-login %}
+<a href="{%url 'login'%}">LOGIN HERE</a>
+{% endblock %}

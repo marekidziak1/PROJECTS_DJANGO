@@ -1,0 +1,45 @@
+{% extends "site1/base.html" %}
+{% block title %} LIST SITE {% endblock %}
+{% block content %}
+    <h1>{{ls.name}}</h1>
+    <form method = 'POST' action="#">
+        {% csrf_token %}
+        {% for item in ls.item_set.all %}
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <div class="input-group-text">    
+                    {% if item.complete == True %}
+                        <input type="checkbox", value="clicked", name="c{{item.id}}" checked>{{item}}  - COMPLETE</li>
+                    {% else %}
+                        <input type="checkbox", value="clicked", name="c{{item.id}}">{{item}}</li>
+                    {%endif %}
+
+                </div>
+            </div>
+            <input type="text" value="{{item.text}}" class="form-control">
+        </div>
+        {% endfor %}
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button type="submit", name="saveNewItemButton", value = "save new Item button" class="btn btn-success">Add new Item</button>
+            </div>
+            <input type='text', name='newItem'>
+        </div>
+        <button type="submit", name="saveButton", value ="save button" class="btn btn-success">SAVE everything</button>
+    </form>
+    <!--
+    <h1>{{ls.name}}</h1>
+    <ul>
+        {% for item in ls.item_set.all %}
+            {%if item.complete == False%}
+                <li>{{item}}</li>
+            {% else %}
+                <li>{{item}} - COMPLETE</li>
+            {%endif %}
+        {% endfor %}
+    </ul>
+    -->
+{% endblock %}
+{% block content-login %}
+<a href="{%url 'login'%}">LOGIN HERE</a>
+{% endblock %}

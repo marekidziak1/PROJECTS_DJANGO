@@ -1,0 +1,12 @@
+{% extends "site1/base.html" %}
+{% block title %} VIEW {% endblock %}
+{% block content %}
+    <h3>VIEW PAGE</h3>
+    {% for td in my_list %}<!--user.todo.all %}-->
+        <p><a href="/{{td.id}}">{{td.name}}</a></p>
+
+    {% endfor %}
+{% endblock %}
+{% block content-login %}
+<a href="{%url 'login'%}">LOGIN HERE</a>
+{% endblock %}

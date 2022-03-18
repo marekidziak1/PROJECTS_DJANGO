@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study bud</title>
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'styles/main.css' %}">
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'base/add.css' %}">
+</head>
+<body>
+    {% include 'navbar.html' %}
+    {%if messages %}
+    <ul class="messages">
+        {% for m in messages %}
+            <li>{{m}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <img src="{% static 'images/logo.png' %}"/>
+    {% block content %}{% endblock%}
+</body>
+</html>
