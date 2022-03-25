@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+{% csrf_token %}
+    {% if objects %}
+        <h1>Searched objects: </h1><hr/>
+        {% for obj in objects %}
+            <h3>{{obj.title}}</h3>
+            <h3>{{obj.content}}</h3>
+            <hr/>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}

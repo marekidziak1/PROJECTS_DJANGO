@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if user.is_authenticated %}
+    <div style="margin-top:30px">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div style="color:red">{{ error }}</div>
+        <div>Are you sure you wanna logout?</div>
+        <input type="submit" value="Confirm" />
+        <button><a href="{% url 'search' %}">Cancel</a></button>
+    </form>
+    </div>
+    {% else %}
+    <div style="margin-top:30px">
+        <p>Yo're can't logout, Would you like to <a href="{% url 'login' %}">login</a>?</p>
+    </div>
+    {% endif %}
+{% endblock content %}

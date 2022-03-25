@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <!--<div>function-based-views create form</div>
+        <input type="text" name="form_title" placeholder="Title" value="{{article.title}}" />
+        <textarea name="form_content" placeholder="Content">{{article.content}}</textarea>
+        <button type="submit">Create article</button>
+    -->
+    <div>create ArticleForm</div>
+        {{form}}
+        <button type="submit">Create article</button>
+</form>
+{% endblock %}

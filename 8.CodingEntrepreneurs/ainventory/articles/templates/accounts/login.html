@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if not user.is_authenticated %}
+    <div style="margin-top:30px">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div style="color:red">{{ error }}</div>
+        <div>
+            <label>username</label>
+            <input type="text" name="username" value="{{my_username}}" placeholder="Username: " />
+            <input type="email" name="email" value="{{my_email}}" placeholder="Email: "/>
+            <input type="password" name="password" placeholder="Password: "/>
+            <input type="submit" value="send" />
+        </div>
+    </form>
+    </div>
+    {% else %}
+    <div style="margin-top:30px">
+        <p>Yo're already logged in, Would you like to <a href="{% url 'logout' %}">logout</a>?</p>
+    </div>
+    {% endif %}
+{% endblock content %}
