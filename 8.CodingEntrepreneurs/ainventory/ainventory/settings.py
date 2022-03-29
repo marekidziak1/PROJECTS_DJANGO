@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -19,17 +19,29 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$2f8b8_2!-91h6ip-!of1(k3zp9@^+ko$=+*l&(0juq#f@*g9j'
+################################################################################################
+#SECURITY WARNING: keep the secret key used in production secret!
+#SECRET_KEY = 'django-insecure-$2f8b8_2!-91h6ip-!of1(k3zp9@^+ko$=+*l&(0juq#f@*g9j'
+#SECRET_KEY = os.environ.get('SECRET_KEY' , 'django-insecure-$2f8b8_2!-91h6ip-!of1(k3zp9@^+ko$=+*l&(0juq#f@*g9j')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY') or 'p!0m)p00+o_#-&@53(131cwaq4133-f*#648u1)46(s&uak8x@'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#SECURITY WARNING: don't run with debug turned on in production!
+#DEBUG = True
+DEBUG = str(os.environ.get('DEBUG')) == "1" # 1 means True 
 
+# ALLOWED_HOSTS =[]
+# if not DEBUG:
+#     ALLOWED_HOSTS += [os.environ.get('ALLOWED_HOSTS')]
+ENV_ALLOWED_HOST = os.environ.get('DJANGO_ALLOWED_HOST') or None
 ALLOWED_HOSTS = []
+if ENV_ALLOWED_HOST is not None:
+    ALLOWED_HOSTS = [ ENV_ALLOWED_HOST ]
+################################################################################################
+
+
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,7 +65,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ainventory.urls'
 
-import os
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -85,6 +97,31 @@ DATABASES = {
     }
 }
 
+POSTGRES_DB = os.environ.get("POSTGRES_DB")
+POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
+POSTGRES_USER = os.environ.get("POSTGRES_USER")
+POSTGRES_HOST = os.environ.get("POSTGRES_HOST")
+POSTGRES_PORT = os.environ.get("POSTGRES_PORT")
+
+POSTGRES_READY = (
+    POSTGRES_DB is not None
+    and POSTGRES_PASSWORD is not None
+    and POSTGRES_USER is not None
+    and POSTGRES_HOST is not None
+    and POSTGRES_PORT is not None
+)
+
+if POSTGRES_READY:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": POSTGRES_DB,
+            "USER": POSTGRES_USER,
+            "PASSWORD": POSTGRES_PASSWORD,
+            "HOST": POSTGRES_HOST,
+            "PORT": POSTGRES_PORT,
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
