@@ -3,10 +3,10 @@
 {% csrf_token %}
     {% if objects %}
         <h1>Searched objects: </h1><hr/>
-        {% for obj in objects %}
-            <h3>{{obj.title}}</h3>
-            <h3>{{obj.content}}</h3>
-            <hr/>
-        {% endfor %}
+        <ol>
+            {% for obj in objects %}
+                <li><a href="{{ obj.get_absolute_url }}"><h3>{{obj.title}}</h3></a></li>
+            {% endfor %}
+         </ol>
     {% endif %}
 {% endblock content %}

@@ -8,11 +8,11 @@
 </head>
 <body>
     <h1>Hello everybody</h1>
-    <form action="{% url 'search' %}">
+    <form action="{% url 'articles:search' %}">
         <input type="text" name="q"/>
         <input type ="submit" />
     </form>
-    <form action="{% url 'search' %}" method="POST">
+    <form action="{% url 'articles:search' %}" method="POST">
         {% csrf_token %}
         <input type="text" name="abc"/>
         <input type ="submit" />

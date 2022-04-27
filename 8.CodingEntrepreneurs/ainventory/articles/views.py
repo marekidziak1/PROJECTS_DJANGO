@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from . forms import ArticleForm
 
 from django.contrib.auth.forms import UserCreationForm
-
+from django.shortcuts import get_object_or_404
 def home_view(request, id):
     article_objects = Article.objects.all()
     context={'article_obj':Article.objects.get(id=2),
@@ -22,10 +22,10 @@ def home_view(request, id):
     HTML_String = render_to_string('home-view.html', context)
     return HttpResponse(HTML_String)
 
-def article_detail_view(request, id=None):
+def article_detail_view(request, slug=None):
     article_obj = None
-    if id is not None:
-        article_obj = Article.objects.get(id=id)
+    if slug is not None:
+        article_obj = get_object_or_404(Article, slug=slug)
     context ={
         "object":article_obj,
     }
@@ -35,10 +35,12 @@ def article_search_view(request):
     print(dir(request))
     if request.method == "GET":
         my_q = request.GET.get('q') 
-        objects= Article.objects.filter(Q(title__icontains=my_q) | Q(content__icontains=my_q)) if my_q != None else None
+        #objects= Article.objects.filter(Q(title__icontains=my_q) | Q(content__icontains=my_q)) if my_q != None else None
+        objects = Article.objects.search(my_q) if my_q != None else None
     if request.method == "POST":
         my_abc = request.POST.get('abc')
-        objects= Article.objects.filter(Q(title__icontains=my_abc) | Q(content__icontains=my_abc))
+        #objects= Article.objects.filter(Q(title__icontains=my_abc) | Q(content__icontains=my_abc))
+        objects = Article.objects.search(my_q) if my_q != None else None
     context={'objects' :objects}
     return render(request, "articles/searched.html", context)
 

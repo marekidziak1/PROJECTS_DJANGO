@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', ainventory_views.home, name='home'),
     path('articles/',include('articles.urls')),
+    path('pantry/recipes/', include('recipes.urls')),
 
     path('loginAccount/', accounts_views.login_view, name='login'),
     path('logoutAccount/', accounts_views.logout_view, name='logout' ),

@@ -5,7 +5,8 @@
     <ul>
     {% for x in my_lst %}
         {% if x.title %}
-            <li><a href="#">{{x.title}} -- {{x.content}}</a></li>
+            <!-- <li><a href="{% url 'articles' x.slug %}">{{x.slug}} -- {{x.content}}</a></li> -->
+            <li><a href="{{ x.get_absolute_url }}">{{x.slug}} -- {{x.content}}</a></li>
         {% endif %}
     {% endfor %}
     </ul>
