@@ -13,7 +13,7 @@ app_name = "account"
 
 urlpatterns = [
     path('my_obtain', obtain_auth_token, name = 'my_obtain'),#login
-    path('login', ObtainAuthTokenView.as_view(), name = 'login'),#login
+    path('login', ObtainAuthTokenView.as_view(), name = 'loginO'),#login
     path('register', registration_view, name = 'register'),
     path('properties', account_properties_view, name = 'properties'),
     path('properties/update', account_update_view, name = 'update'),

@@ -6,7 +6,7 @@ class BlogPostSerializer(serializers.ModelSerializer):
     #image = serializers.SerializerMethodField('validate_image_url')
     class Meta:
         model = BlogPost
-        fields = ['title','body', 'image']
+        fields = ['title','body', 'image','username']
     def get_username_from_author(self, blog_post):
         username = blog_post.author.username
         return username

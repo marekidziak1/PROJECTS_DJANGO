@@ -10,10 +10,10 @@ from django.contrib.auth.decorators import login_required
 
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
 
 from rest_framework.filters import SearchFilter, OrderingFilter
-
+from rest_framework.views import APIView
 
 #@login_required(login_url='login')
 @api_view(['GET',])
@@ -76,12 +76,13 @@ def api_create_blog_view(request):
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+
+
 class ApiBlogListView(ListAPIView):
     queryset = BlogPost.objects.all()
     serializer_class = BlogPostSerializer
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)     #(AllowAny,) #
+    #authentication_classes = (SessionAuthentication, BasicAuthentication)#(TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)     #(AllowAny,)        #
     pagination_class = PageNumberPagination
     page_size = 1
     filter_backends = (SearchFilter, OrderingFilter)
