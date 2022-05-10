@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <form autocomplete="off" action="" method ="POST">
+        {% csrf_token %}
+        <p>{{customer.name}}</p>
+        {{formset.management_form}}
+        {%for form in formset%}
+            <p>{{form}}</p>
+        {%endfor%}
+        <input type="submit" name="Submit"/>
+    </form>
+
+{% endblock %}

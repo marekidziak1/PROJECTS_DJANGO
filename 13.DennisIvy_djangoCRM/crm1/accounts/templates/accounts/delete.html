@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<div class="row">
+    <div class="col-md-6">
+    <div class="card card-body">
+        <p>Are you sure you want to delete?</p>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="submit" name ="confirm" value="confirm" class ="btn btn-sm btn-info" />
+                <a class="btn btn-warning" href="{%url 'home' %}">Cancel</a>
+                <!-- <input type="submit" name ="cancel" value="cancel" class ="btn btn-sm btn-info" /> -->
+                <!-- <a href="{{request.META.HTTP_REFERER}}"><input name="cancel" value="cancel" class ="btn btn-sm btn-danger"></a> -->
+            </form>
+    </div>
+    </div>
+</div>
+{% endblock %}
